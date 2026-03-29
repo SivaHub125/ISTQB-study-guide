@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISTQB Practice Questions - MCQ Quiz</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #1e1b4b;
+            --light: #f5f3ff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --bg: #0f0f23;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: #e2e8f0;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .nav-brand {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: #a5b4fc;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        nav a:hover { background: var(--primary); color: white; }
+
+        .btn-back {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white !important;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--dark) 0%, #312e81 50%, var(--bg) 100%);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #a5b4fc;
+            font-size: 1.1rem;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .chapter-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .chapter-filter button {
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            background: transparent;
+            color: #a5b4fc;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .chapter-filter button:hover,
+        .chapter-filter button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .stats {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-correct { color: var(--success); }
+        .stat-wrong { color: var(--error); }
+        .stat-total { color: var(--warning); }
+
+        .question-card {
+            background: linear-gradient(145deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .question-number {
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .question-chapter {
+            background: rgba(139, 92, 246, 0.3);
+            color: #c4b5fd;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .question-klevel {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .k1 { background: rgba(16, 185, 129, 0.3); color: var(--success); }
+        .k2 { background: rgba(99, 102, 241, 0.3); color: #a5b4fc; }
+        .k3 { background: rgba(245, 158, 11, 0.3); color: var(--warning); }
+
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #f1f5f9;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option {
+            padding: 1rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .option:hover:not(.disabled) {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .option.wrong {
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .option.disabled {
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        .option-letter {
+            background: rgba(99, 102, 241, 0.2);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .option.correct .option-letter { background: var(--success); color: white; }
+        .option.wrong .option-letter { background: var(--error); color: white; }
+
+        .explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .explanation.show { display: block; }
+
+        .explanation strong { color: var(--success); }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(99, 102, 241, 0.3);
+        }
+
+        .results {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(145deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+
+        .results h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--success), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .score-fail {
+            background: linear-gradient(135deg, var(--error), var(--warning));
+            -webkit-background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hidden { display: none; }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.8rem; }
+            .controls { flex-direction: column; }
+            .stats { width: 100%; justify-content: space-around; }
+            .container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-brand">📚 ISTQB Practice</div>
+        <div class="nav-links">
+            <a href="istqb-study-guide.html" class="btn-back">← Back to Study Guide</a>
+        </div>
+    </nav>
+
+    <div class="header">
+        <h1>🎯 Practice Questions</h1>
+        <p>Test your knowledge with MCQ questions from all chapters</p>
+    </div>
+
+    <div class="container">
+        <div class="controls">
+            <div class="chapter-filter">
+                <button data-chapter="all" class="active">All</button>
+                <button data-chapter="ch1">Ch 1: Fundamentals</button>
+                <button data-chapter="ch2">Ch 2: SDLC</button>
+                <button data-chapter="ch3">Ch 3: Static</button>
+                <button data-chapter="ch4">Ch 4: Design</button>
+                <button data-chapter="ch5">Ch 5: Management</button>
+                <button data-chapter="ch6">Ch 6: Tools</button>
+            </div>
+            <div class="stats">
+                <span class="stat-correct">✓ <span id="correct-count">0</span></span>
+                <span class="stat-wrong">✗ <span id="wrong-count">0</span></span>
+                <span class="stat-total">Total: <span id="total-count">0</span></span>
+            </div>
+        </div>
+
+        <div id="questions-container"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="shuffleQuestions()">🔀 Shuffle Questions</button>
+            <button class="btn btn-primary" onclick="showResults()">📊 Show Results</button>
+        </div>
+
+        <div id="results" class="results hidden">
+            <h2>Your Score</h2>
+            <div id="score-display" class="score">0%</div>
+            <p id="score-message" style="margin-top: 1rem; color: #a5b4fc;"></p>
+            <div class="btn-group" style="margin-top: 1.5rem;">
+                <button class="btn btn-primary" onclick="resetQuiz()">🔄 Try Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // CHAPTER 1: FUNDAMENTALS
+            {
+                chapter: "ch1",
+                chapterName: "Fundamentals",
+                klevel: "k1",
+                question: "What is the primary purpose of software testing?",
+                options: [
+                    "To prove that software is completely bug-free",
+                    "To assess software quality and reduce the risk of failure",
+                    "To debug all code before release",
+                    "To document all known defects"
+                ],
+                correct: 1,
+                explanation: "Testing assesses software quality and helps reduce the risk of software failure by discovering defects and evaluating quality."
+            },
+            {
+                chapter: "ch1",
+                chapterName: "Fundamentals",
+                klevel: "k2",
+                question: "Which of the following is a KEY difference between verification and validation?",
+                options: [
+                    "Verification is done by testers, validation by developers",
+                    "Verification checks 'are we building the product right?', validation checks 'are we building the right product?'",
+                    "They are exactly the same",
+                    "Verification is dynamic, validation is static"
+                ],
+                correct: 1,
+                explanation: "Verification answers 'Are we building the product right?' (meeting specs), while Validation answers 'Are we building the right product?' (meeting user needs)."
+            },
+            {
+                chapter: "ch1",
+                chapterName: "Fundamentals",
+                klevel: "k1",
+                question: "An error in code that produces unexpected behavior is called a:",
+                options: [
+                    "Root Cause",
+                    "Failure",
+                    "Defect",
+                    "Impact"
+                ],
+                correct: 2,
+                explanation: "A defect is a flaw in code that causes incorrect behavior. An error is the human mistake, and a failure is the observable incorrect behavior."
+            },
+            {
+                chapter: "ch1",
+                chapterName: "Fundamentals",
+                klevel: "k2",
+                question: "Which testing principle states that repeated tests become less effective over time?",
+                options: [
+                    "Presence, not absence",
+                    "Exhaustive testing is impossible",
+                    "Pesticide Paradox",
+                    "Defect clustering"
+                ],
+                correct: 2,
+                explanation: "The Pesticide Paradox (Principle 5) states that if the same tests are repeated, they eventually stop finding new defects."
+            },
+            {
+                chapter: "ch1",
+                chapterName: "Fundamentals",
+                klevel: "k2",
+                question: "What is the correct order of the test activities?",
+                options: [
+                    "Execution → Planning → Analysis → Design → Monitoring",
+                    "Planning → Analysis → Design → Implementation → Execution",
+                    "Analysis → Planning → Design → Execution → Monitoring",
+                    "Design → Planning → Analysis → Execution → Completion"
+                ],
+                correct: 1,
+                explanation: "Test activities follow the order: Planning → Monitoring → Analysis → Design → Implementation → Execution → Completion."
+            },
+            {
+                chapter: "ch1",
+                chapterName: "Fundamentals",
+                klevel: "k2",
+                question: "Which of the following is TRUE about independence in testing?",
+                options: [
+                    "Independent testing always produces better results",
+                    "Some level of independence is always bad",
+                    "Independence ranges from no independence to completely external testing",
+                    "Testers should never work with developers"
+                ],
+                correct: 2,
+                explanation: "Independence ranges from no independence (developers test own code) to external testing. Different levels have different benefits."
+            },
+            {
+                chapter: "ch1",
+                chapterName: "Fundamentals",
+                klevel: "k1",
+                question: "Testing and Quality Assurance (QA) differ because:",
+                options: [
+                    "Testing is process-oriented, QA is product-oriented",
+                    "Testing is product-oriented, QA is process-oriented",
+                    "They are the same thing",
+                    "QA finds defects, testing prevents them"
+                ],
+                correct: 1,
+                explanation: "Testing is product-oriented (finding defects), while QA is process-oriented (preventing defects through good processes)."
+            },
+
+            // CHAPTER 2: SDLC
+            {
+                chapter: "ch2",
+                chapterName: "SDLC",
+                klevel: "k2",
+                question: "In which SDLC model does testing occur parallel to development?",
+                options: [
+                    "Waterfall",
+                    "Agile",
+                    "V-Model",
+                    "Spiral"
+                ],
+                correct: 2,
+                explanation: "The V-Model pairs development phases with corresponding test phases, so testing occurs parallel to development."
+            },
+            {
+                chapter: "ch2",
+                chapterName: "SDLC",
+                klevel: "k2",
+                question: "What does 'Shift Left' mean in testing?",
+                options: [
+                    "Testing should happen at the end of the project",
+                    "Testing earlier in the lifecycle",
+                    "Moving tests to production",
+                    "Reducing the number of tests"
+                ],
+                correct: 1,
+                explanation: "Shift Left means starting testing activities earlier in the SDLC to find defects sooner when they're cheaper to fix."
+            },
+            {
+                chapter: "ch2",
+                chapterName: "SDLC",
+                klevel: "k2",
+                question: "Which testing type verifies that previously fixed defects are indeed fixed?",
+                options: [
+                    "Regression testing",
+                    "Confirmation testing",
+                    "Smoke testing",
+                    "Performance testing"
+                ],
+                correct: 1,
+                explanation: "Confirmation testing (also called re-testing) verifies that fixes work by running the same tests that found the defects."
+            },
+            {
+                chapter: "ch2",
+                chapterName: "SDLC",
+                klevel: "k2",
+                question: "In TDD (Test-Driven Development), what is the correct sequence?",
+                options: [
+                    "Code → Test → Refactor",
+                    "Refactor → Test → Code",
+                    "RED (failing test) → GREEN (passing code) → REFACTOR",
+                    "Test → Code → Deploy"
+                ],
+                correct: 2,
+                explanation: "TDD follows: RED (write failing test first) → GREEN (write minimal code to pass) → REFACTOR (improve code)."
+            },
+            {
+                chapter: "ch2",
+                chapterName: "SDLC",
+                klevel: "k1",
+                question: "Which test level focuses on interfaces between components?",
+                options: [
+                    "Component testing",
+                    "Integration testing",
+                    "System testing",
+                    "Acceptance testing"
+                ],
+                correct: 1,
+                explanation: "Integration testing focuses on the interfaces and interactions between integrated components."
+            },
+            {
+                chapter: "ch2",
+                chapterName: "SDLC",
+                klevel: "k2",
+                question: "Regression testing is performed to ensure:",
+                options: [
+                    "New functionality works",
+                    "Fixed defects don't recur",
+                    "Existing functionality still works after changes",
+                    "Performance meets requirements"
+                ],
+                correct: 2,
+                explanation: "Regression testing verifies that new changes haven't broken existing functionality."
+            },
+            {
+                chapter: "ch2",
+                chapterName: "SDLC",
+                klevel: "k2",
+                question: "Which Agile practice involves automatic testing in the delivery pipeline?",
+                options: [
+                    "Code review",
+                    "Retrospective",
+                    "DevOps with CI/CD",
+                    "Waterfall planning"
+                ],
+                correct: 2,
+                explanation: "DevOps with CI/CD (Continuous Integration/Continuous Deployment) automates testing in the delivery pipeline."
+            },
+            {
+                chapter: "ch2",
+                chapterName: "SDLC",
+                klevel: "k2",
+                question: "The Spiral model is characterized by:",
+                options: [
+                    "Sequential phases with no iteration",
+                    "Risk-driven approach with multiple iterations",
+                    "Testing only at the end",
+                    "Fixed requirements upfront"
+                ],
+                correct: 1,
+                explanation: "The Spiral model uses risk analysis at each iteration and combines iterative development with systematic risk assessment."
+            },
+
+            // CHAPTER 3: STATIC TESTING
+            {
+                chapter: "ch3",
+                chapterName: "Static Testing",
+                klevel: "k1",
+                question: "Static testing involves:",
+                options: [
+                    "Executing the code",
+                    "Running test cases",
+                    "Reviews and static analysis without execution",
+                    "Testing in production"
+                ],
+                correct: 2,
+                explanation: "Static testing examines work products without executing code, including reviews and static analysis by tools."
+            },
+            {
+                chapter: "ch3",
+                chapterName: "Static Testing",
+                klevel: "k2",
+                question: "Which review type is the MOST formal with trained participants?",
+                options: [
+                    "Informal review",
+                    "Walkthrough",
+                    "Technical review",
+                    "Inspection"
+                ],
+                correct: 3,
+                explanation: "Inspection is the most formal review type, with trained participants, a moderator, and defined process."
+            },
+            {
+                chapter: "ch3",
+                chapterName: "Static Testing",
+                klevel: "k1",
+                question: "Which work product can be examined by static testing?",
+                options: [
+                    "Only source code",
+                    "Only executable files",
+                    "Requirements, designs, code, contracts",
+                    "Only test reports"
+                ],
+                correct: 2,
+                explanation: "Static testing can examine any work product: requirements, designs, code, test documentation, contracts, user manuals."
+            },
+            {
+                chapter: "ch3",
+                chapterName: "Static Testing",
+                klevel: "k2",
+                question: "Static analysis by tools can find:",
+                options: [
+                    "Only syntax errors",
+                    "Runtime errors",
+                    "Coding standard violations, potential bugs, security issues",
+                    "Only memory leaks"
+                ],
+                correct: 2,
+                explanation: "Static analysis tools can find coding standards violations, potential bugs (null pointers), complexity issues, and security vulnerabilities."
+            },
+            {
+                chapter: "ch3",
+                chapterName: "Static Testing",
+                klevel: "k2",
+                question: "In a review, who is responsible for facilitating the process?",
+                options: [
+                    "Author",
+                    "Reviewer",
+                    "Moderator",
+                    "Manager"
+                ],
+                correct: 2,
+                explanation: "The Moderator facilitates the review process, ensures rules are followed, and leads the review meeting."
+            },
+            {
+                chapter: "ch3",
+                chapterName: "Static Testing",
+                klevel: "k2",
+                question: "Success factors for reviews include:",
+                options: [
+                    "Large review teams",
+                    "Rushed reviews",
+                    "Clear objectives, right participants, small pieces",
+                    "No management involvement"
+                ],
+                correct: 2,
+                explanation: "Success factors: clear objectives, right participants (technical + business), small manageable pieces, adequate time, regular process."
+            },
+
+            // CHAPTER 4: TEST DESIGN
+            {
+                chapter: "ch4",
+                chapterName: "Test Design",
+                klevel: "k3",
+                question: "Equivalence Partitioning divides input data into:",
+                options: [
+                    "Random groups",
+                    "Groups that behave similarly",
+                    "Only valid values",
+                    "Only invalid values"
+                ],
+                correct: 1,
+                explanation: "Equivalence Partitioning divides input data into groups/partitions that behave similarly, testing one representative from each."
+            },
+            {
+                chapter: "ch4",
+                chapterName: "Test Design",
+                klevel: "k3",
+                question: "For input range 18-65 (valid), boundary value analysis tests:",
+                options: [
+                    "18, 35, 65",
+                    "17, 18, 65, 66",
+                    "10, 20, 60, 70",
+                    "18, 19, 64, 65"
+                ],
+                correct: 1,
+                explanation: "BVA tests at boundaries: just below (17), at lower boundary (18), at upper boundary (65), just above (66)."
+            },
+            {
+                chapter: "ch4",
+                chapterName: "Test Design",
+                klevel: "k3",
+                question: "Decision table testing is useful when:",
+                options: [
+                    "Testing system performance",
+                    "Testing combinations of conditions lead to actions",
+                    "Testing user interface",
+                    "Testing security"
+                ],
+                correct: 1,
+                explanation: "Decision table testing systematically tests combinations of conditions and their corresponding actions."
+            },
+            {
+                chapter: "ch4",
+                chapterName: "Test Design",
+                klevel: "k3",
+                question: "State transition testing is appropriate when:",
+                options: [
+                    "Testing mathematical calculations",
+                    "System behavior depends on current state",
+                    "Testing database queries",
+                    "Testing API responses"
+                ],
+                correct: 1,
+                explanation: "State transition testing is used when system behavior varies depending on its current state (e.g., login states)."
+            },
+            {
+                chapter: "ch4",
+                chapterName: "Test Design",
+                klevel: "k2",
+                question: "Branch coverage is typically HIGHER than statement coverage because:",
+                options: [
+                    "It's easier to achieve",
+                    "Every branch tests both true and false conditions",
+                    "It tests fewer paths",
+                    "It doesn't require execution"
+                ],
+                correct: 1,
+                explanation: "Branch coverage requires testing each branch direction (true and false), which generally achieves higher coverage than statement coverage."
+            },
+            {
+                chapter: "ch4",
+                chapterName: "Test Design",
+                klevel: "k2",
+                question: "Black-box testing techniques are based on:",
+                options: [
+                    "Internal code structure",
+                    "Requirements and specifications",
+                    "Tester's intuition only",
+                    "Previous test data"
+                ],
+                correct: 1,
+                explanation: "Black-box techniques are based on requirements and specifications, without knowledge of internal structure."
+            },
+            {
+                chapter: "ch4",
+                chapterName: "Test Design",
+                klevel: "k2",
+                question: "Which is an experience-based testing technique?",
+                options: [
+                    "Equivalence Partitioning",
+                    "Boundary Value Analysis",
+                    "Error Guessing",
+                    "Decision Tables"
+                ],
+                correct: 2,
+                explanation: "Error Guessing is an experience-based technique where testers predict defects based on experience and common error patterns."
+            },
+
+            // CHAPTER 5: MANAGEMENT
+            {
+                chapter: "ch5",
+                chapterName: "Management",
+                klevel: "k2",
+                question: "Entry criteria must be met:",
+                options: [
+                    "After testing begins",
+                    "Before testing begins",
+                    "During test execution",
+                    "At the end of testing"
+                ],
+                correct: 1,
+                explanation: "Entry criteria define conditions that must be met before testing can begin."
+            },
+            {
+                chapter: "ch5",
+                chapterName: "Management",
+                klevel: "k2",
+                question: "Risk = Probability × Impact describes:",
+                options: [
+                    "Only project risks",
+                    "Only product risks",
+                    "Both project and product risks",
+                    "Only financial risks"
+                ],
+                correct: 2,
+                explanation: "Risk is calculated as probability times impact and applies to both project risks (budget, schedule) and product risks (defects)."
+            },
+            {
+                chapter: "ch5",
+                chapterName: "Management",
+                klevel: "k2",
+                question: "Which risk response strategy involves shifting risk to another party?",
+                options: [
+                    "Risk Acceptance",
+                    "Risk Mitigation",
+                    "Risk Transfer",
+                    "Risk Avoidance"
+                ],
+                correct: 2,
+                explanation: "Risk Transfer shifts risk to another party through insurance, outsourcing, warranties, or contractual agreements."
+            },
+            {
+                chapter: "ch5",
+                chapterName: "Management",
+                klevel: "k2",
+                question: "The test pyramid suggests:",
+                options: [
+                    "More E2E tests",
+                    "More UI tests",
+                    "More unit tests",
+                    "Equal tests at all levels"
+                ],
+                correct: 2,
+                explanation: "The test pyramid recommends many unit tests at the base, fewer integration tests, and few E2E/UI tests at the top."
+            },
+            {
+                chapter: "ch5",
+                chapterName: "Management",
+                klevel: "k2",
+                question: "Configuration Management ensures:",
+                options: [
+                    "Only code version control",
+                    "Only test data management",
+                    "Identification, control, and tracking of testware versions",
+                    "Only defect tracking"
+                ],
+                correct: 2,
+                explanation: "Configuration Management identifies, controls, and tracks versions of all testware including test plans, cases, scripts, and data."
+            },
+            {
+                chapter: "ch5",
+                chapterName: "Management",
+                klevel: "k2",
+                question: "PERT estimation formula is:",
+                options: [
+                    "(Min + Max) / 2",
+                    "(O + 4M + P) / 6",
+                    "Min × Max / 2",
+                    "O + M + P"
+                ],
+                correct: 1,
+                explanation: "PERT = (Optimistic + 4×Most Likely + Pessimistic) / 6, providing a weighted average estimate."
+            },
+            {
+                chapter: "ch5",
+                chapterName: "Management",
+                klevel: "k2",
+                question: "Which defect workflow status means 'defect is fixed, awaiting verification'?",
+                options: [
+                    "New",
+                    "Open",
+                    "Deferred",
+                    "Fixed"
+                ],
+                correct: 3,
+                explanation: "'Fixed' status indicates the defect has been corrected and is awaiting confirmation testing to verify the fix."
+            },
+
+            // CHAPTER 6: TOOLS
+            {
+                chapter: "ch6",
+                chapterName: "Tools",
+                klevel: "k1",
+                question: "Test tools can:",
+                options: [
+                    "Completely replace skilled testers",
+                    "Support but not replace testing activities",
+                    "Automatically write all test cases",
+                    "Guarantee quality"
+                ],
+                correct: 1,
+                explanation: "Test tools support testing activities but cannot replace skilled testers who provide judgment and context."
+            },
+            {
+                chapter: "ch6",
+                chapterName: "Tools",
+                klevel: "k2",
+                question: "FRRSR represents benefits of test automation. What does the first 'R' stand for?",
+                options: [
+                    "Reliable",
+                    "Repeatable",
+                    "Reusable",
+                    "Recoverable"
+                ],
+                correct: 1,
+                explanation: "FRRSR: Faster, Repeatable, Reusable, Saves Cost, Reliable - benefits of test automation."
+            },
+            {
+                chapter: "ch6",
+                chapterName: "Tools",
+                klevel: "k2",
+                question: "CMFOW represents risks of test automation. What does 'F' stand for?",
+                options: [
+                    "Failure",
+                    "False Sense of Security",
+                    "Funding",
+                    "Flexibility"
+                ],
+                correct: 1,
+                explanation: "CMFOW: Cost, Maintenance, False Sense of Security, Over-automation, Wrong Candidates - risks of test automation."
+            },
+            {
+                chapter: "ch6",
+                chapterName: "Tools",
+                klevel: "k2",
+                question: "Which is a GOOD candidate for automation?",
+                options: [
+                    "One-time tests",
+                    "Frequently changing features",
+                    "Exploratory testing",
+                    "Regression tests"
+                ],
+                correct: 3,
+                explanation: "Regression tests are excellent automation candidates because they need repeated execution and verify existing functionality."
+            },
+            {
+                chapter: "ch6",
+                chapterName: "Tools",
+                klevel: "k2",
+                question: "Selenium is an example of which tool category?",
+                options: [
+                    "Test Management",
+                    "Static Analysis",
+                    "Test Execution",
+                    "Performance Testing"
+                ],
+                correct: 2,
+                explanation: "Selenium is a test execution tool for automated browser testing of web applications."
+            },
+            {
+                chapter: "ch6",
+                chapterName: "Tools",
+                klevel: "k2",
+                question: "When implementing test automation, which approach is recommended?",
+                options: [
+                    "Automate everything immediately",
+                    "Start with a pilot project",
+                    "Only use free tools",
+                    "Avoid CI/CD integration"
+                ],
+                correct: 1,
+                explanation: "Best practice: start with a pilot project to evaluate the tool before full implementation."
+            },
+
+            // ADDITIONAL QUESTIONS
+            {
+                chapter: "ch1",
+                chapterName: "Fundamentals",
+                klevel: "k2",
+                question: "Which testing principle states most defects are found in few modules?",
+                options: [
+                    "Early testing",
+                    "Defect clustering",
+                    "Pesticide paradox",
+                    "Context dependent"
+                ],
+                correct: 1,
+                explanation: "Defect Clustering (Principle 4) - Pareto principle: most defects are typically found in a few modules."
+            },
+            {
+                chapter: "ch2",
+                chapterName: "SDLC",
+                klevel: "k2",
+                question: "Which test type evaluates 'how well' the system performs?",
+                options: [
+                    "Functional testing",
+                    "Non-functional testing",
+                    "Structural testing",
+                    "Change-related testing"
+                ],
+                correct: 1,
+                explanation: "Non-functional testing evaluates how well the system performs (performance, usability, security, reliability)."
+            },
+            {
+                chapter: "ch4",
+                chapterName: "Test Design",
+                klevel: "k3",
+                question: "If there are 3 equivalence partitions, how many test cases are needed minimum?",
+                options: [
+                    "1",
+                    "2",
+                    "3",
+                    "6"
+                ],
+                correct: 2,
+                explanation: "EP requires at least one test case per partition (valid and invalid), so 3 partitions = 3 minimum test cases."
+            },
+            {
+                chapter: "ch5",
+                chapterName: "Management",
+                klevel: "k2",
+                question: "Which testing quadrant contains exploratory and usability testing?",
+                options: [
+                    "Q1",
+                    "Q2",
+                    "Q3",
+                    "Q4"
+                ],
+                correct: 2,
+                explanation: "Q3 contains exploratory, usability, and user acceptance testing focused on finding issues and validating UX."
+            },
+            {
+                chapter: "ch3",
+                chapterName: "Static Testing",
+                klevel: "k2",
+                question: "The work product author plays which role in reviews?",
+                options: [
+                    "Moderator only",
+                    "Reviewer only",
+                    "Can be both author and reviewer",
+                    "Manager only"
+                ],
+                correct: 2,
+                explanation: "The author creates the work product and typically participates as a reviewer. Roles can be combined in informal reviews."
+            }
+        ];
+
+        let currentQuestions = [...questions];
+        let correctCount = 0;
+        let wrongCount = 0;
+        let answeredCount = 0;
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            
+            currentQuestions.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `q-${index}`;
+                
+                const letters = ['A', 'B', 'C', 'D'];
+                let optionsHtml = q.options.map((opt, i) => `
+                    <div class="option" data-index="${i}" onclick="selectOption(${index}, ${i})">
+                        <span class="option-letter">${letters[i]}</span>
+                        <span>${opt}</span>
+                    </div>
+                `).join('');
+                
+                card.innerHTML = `
+                    <div class="question-header">
+                        <span class="question-number">Q${index + 1}</span>
+                        <span class="question-chapter">${q.chapterName}</span>
+                        <span class="question-klevel ${q.klevel}">${q.klevel.toUpperCase()}</span>
+                    </div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options">${optionsHtml}</div>
+                    <div class="explanation" id="exp-${index}">
+                        <strong>✓ Correct Answer: ${letters[q.correct]}</strong><br><br>
+                        ${q.explanation}
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+            
+            document.getElementById('total-count').textContent = currentQuestions.length;
+            answeredCount = 0;
+            correctCount = 0;
+            wrongCount = 0;
+            updateStats();
+        }
+
+        function selectOption(qIndex, optIndex) {
+            const card = document.getElementById(`q-${qIndex}`);
+            const options = card.querySelectorAll('.option');
+            const explanation = document.getElementById(`exp-${qIndex}`);
+            
+            if (card.querySelector('.option.correct') || card.querySelector('.option.wrong')) {
+                return;
+            }
+            
+            const q = currentQuestions[qIndex];
+            
+            options.forEach(opt => opt.classList.add('disabled'));
+            
+            if (optIndex === q.correct) {
+                options[optIndex].classList.add('correct');
+                correctCount++;
+            } else {
+                options[optIndex].classList.add('wrong');
+                options[q.correct].classList.add('correct');
+                wrongCount++;
+            }
+            
+            explanation.classList.add('show');
+            answeredCount++;
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('correct-count').textContent = correctCount;
+            document.getElementById('wrong-count').textContent = wrongCount;
+        }
+
+        function showResults() {
+            const resultsDiv = document.getElementById('results');
+            const scoreDisplay = document.getElementById('score-display');
+            const scoreMessage = document.getElementById('score-message');
+            
+            const percentage = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+            
+            scoreDisplay.textContent = `${percentage}% (${correctCount}/${answeredCount})`;
+            
+            if (percentage >= 75) {
+                scoreDisplay.classList.remove('score-fail');
+                scoreMessage.textContent = "🎉 Excellent! You're well prepared for the exam!";
+            } else if (percentage >= 60) {
+                scoreDisplay.classList.remove('score-fail');
+                scoreMessage.textContent = "👍 Good effort! Review the topics you missed.";
+            } else if (percentage >= 40) {
+                scoreDisplay.classList.add('score-fail');
+                scoreMessage.textContent = "📚 Keep studying! Focus on the chapters you need to improve.";
+            } else {
+                scoreDisplay.classList.add('score-fail');
+                scoreMessage.textContent = "💪 Don't give up! Review the study guide thoroughly.";
+            }
+            
+            resultsDiv.classList.remove('hidden');
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetQuiz() {
+            document.getElementById('results').classList.add('hidden');
+            shuffleQuestions();
+        }
+
+        function shuffleQuestions() {
+            document.getElementById('results').classList.add('hidden');
+            currentQuestions = shuffleArray([...questions]);
+            renderQuestions();
+            document.getElementById('questions-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function filterByChapter(chapter) {
+            document.querySelectorAll('.chapter-filter button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.chapter === chapter);
+            });
+            
+            if (chapter === 'all') {
+                currentQuestions = shuffleArray([...questions]);
+            } else {
+                currentQuestions = shuffleArray(questions.filter(q => q.chapter === chapter));
+            }
+            
+            document.getElementById('results').classList.add('hidden');
+            renderQuestions();
+        }
+
+        document.querySelectorAll('.chapter-filter button').forEach(btn => {
+            btn.addEventListener('click', () => filterByChapter(btn.dataset.chapter));
+        });
+
+        renderQuestions();
+    </script>
+</body>
+</html>
